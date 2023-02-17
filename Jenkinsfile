@@ -1,15 +1,31 @@
-#!/usr/bin/env groovy
-pipeline{
-  agent{
-    docker{
-      image 'jenkins:PES1UG20CS627'
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'g++ -o filename filename.cpp'
+                echo 'build stage successful'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './filename'
+                echo 'test stage successful'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'echo "Deploying "'
+                echo 'deployment successful'
+            }
+        }
     }
-  }
-  stages{
-    stage('Clone repository'){
-      steps{
-        git branch: 'main',
-        url: 'https://github.com/Arpita-B-K/PES1UG20CS627_Jenkins.git'
-      }
-    }
+    post {
+        failure {
+          echo 'pipeline failed'
+                }
+            
+        
+    }
+}
    
