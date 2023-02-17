@@ -3,26 +3,22 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'g++ -o PES1UG20CS627 PES1UG20CS627.cpp'
-                echo 'build stage successful'
+                sh 'g++ -o PES1UG20CS627-1 PES1UG20CS627.cpp'
+                echo "Build Successful"
             }
         }
         stage('Test') {
             steps {
-                sh './PES1UG20CS627'
-                echo 'test stage successful'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo "Deploying "'
-                echo 'deployment successful'
+                sh './PES1UG20CS627-1'
             }
         }
     }
     post {
+        always {
+            echo 'Pipeline completed'
+        }
         failure {
-          echo 'pipeline failed'
-                }        
+            echo 'Pipeline failed'
+        }
     }
 }
